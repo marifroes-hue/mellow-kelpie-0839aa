@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rastreamento Hormonal 40+ | Mari Froes</title>
+<meta name="description" content="Descubra seu nível de inflamação hormonal em 8 perguntas. Ferramenta gratuita da nutricionista Mari Froes.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terracota: #C4623A;
+    --terracota-light: #F5EAE4;
+    --terracota-mid: #E8C4B0;
+    --lilas: #A08CB0;
+    --lilas-light: #F0EBF5;
+    --text-dark: #2C1F18;
+    --text-mid: #6B4F40;
+    --text-light: #9A7A6E;
+    --bg: #FDFAF8;
+    --white: #FFFFFF;
+    --border: #EDE0D8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .brand {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
+  header h1 em {
+    color: var(--terracota);
+    font-style: italic;
+  }
+
+  header p {
+    font-size: 15px;
+    color: var(--text-mid);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* MAIN CONTAINER */
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .progress-count {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--terracota);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* QUIZ STEPS */
+  .step { display: none; }
+  .step.active { display: block; }
+
+  .step-area {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lilas);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .step-question {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 3.5vw, 22px);
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.75rem;
+  }
+
+  .opt {
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--text-dark);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    -webkit-appearance: none;
+  }
+
+  .opt:hover {
+    border-color: var(--terracota-mid);
+    background: var(--terracota-light);
+  }
+
+  .opt.selected {
+    border-color: var(--terracota);
+    background: var(--terracota-light);
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .step-nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-next {
+    background: var(--terracota);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-next:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .btn-next:not(:disabled):hover { opacity: 0.85; }
+  .btn-next:not(:disabled):active { transform: scale(0.98); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.75rem 0;
+  }
+
+  /* RESULTADO */
+  #result { display: none; }
+
+  .result-header {
+    text-align: center;
+    padding: 1.5rem 0 1.25rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.75rem;
+  }
+
+  .result-level-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .result-score-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .result-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  .result-subtitle {
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+
+  /* SCORE BAR GERAL */
+  .score-bar-section { margin-bottom: 1.75rem; }
+
+  .score-bar-bg {
+    height: 8px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1s ease;
+    width: 0%;
+  }
+
+  .score-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-light);
+  }
+
+  /* ÁREAS */
+  .areas-section { margin-bottom: 1.75rem; }
+
+  .areas-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .area-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .area-name {
+    font-size: 13px;
+    color: var(--text-mid);
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .area-bar-bg {
+    flex: 1;
+    height: 5px;
+    background: var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .area-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .area-pct {
+    font-size: 12px;
+    color: var(--text-light);
+    min-width: 30px;
+    text-align: right;
+  }
+
+  /* RECOMENDAÇÕES */
+  .recs-section {
+    background: var(--lilas-light);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .recs-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lilas);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .rec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .rec-item:last-child { margin-bottom: 0; }
+
+  .rec-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lilas);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--terracota-light);
+    border: 1px solid var(--terracota-mid);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .cta-text {
+    font-size: 15px;
+    color: var(--text-dark);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--terracota);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s, transform 0.1s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .cta-btn:hover { opacity: 0.85; }
+  .cta-btn:active { transform: scale(0.98); }
+
+  .cta-sub {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 10px;
+  }
+
+  /* REFAZER */
+  .restart-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .restart-btn:hover { border-color: var(--terracota-mid); color: var(--text-mid); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  footer a { color: var(--terracota); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    header { padding: 2rem 1.25rem 1.5rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+    .area-name { min-width: 100px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Mari Froes · Nutricionista funcional</div>
+  <h1>Qual é o seu nível de<br><em>inflamação hormonal?</em></h1>
+  <p>8 perguntas rápidas para mapear como seus hormônios estão respondendo agora</p>
+</header>
+
+<main>
+  <div id="quiz-section">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label">Seu rastreamento</span>
+        <span class="progress-count" id="prog-count">1 de 8</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="prog-fill"></div>
+      </div>
+    </div>
+
+    <!-- Pergunta 1 -->
+    <div class="step active" data-step="0">
+      <div class="step-area">Sono</div>
+      <div class="step-question">Como está seu sono nos últimos meses?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Durmo bem e me sinto descansada</button>
+        <button class="opt" data-score="1">Acordo 1 ou 2 vezes, mas volto a dormir</button>
+        <button class="opt" data-score="2">Acordo com calor ou suor e tenho dificuldade de voltar a dormir</button>
+        <button class="opt" data-score="3">Sono péssimo, acordo exausta toda manhã</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 2 -->
+    <div class="step" data-step="1">
+      <div class="step-area">Humor</div>
+      <div class="step-question">Como está seu humor e ansiedade?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Estável, me sinto bem</button>
+        <button class="opt" data-score="1">Algumas oscilações, mas controláveis</button>
+        <button class="opt" data-score="2">Irritabilidade frequente ou ansiedade que interfere no dia</button>
+        <button class="opt" data-score="3">Sinto que não me reconheço, choro sem motivo ou tenho ataques de ansiedade</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 3 -->
+    <div class="step" data-step="2">
+      <div class="step-area">Energia</div>
+      <div class="step-question">Como é seu nível de energia ao longo do dia?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Energia estável do começo ao fim</button>
+        <button class="opt" data-score="1">Queda no meio da tarde, mas recupero</button>
+        <button class="opt" data-score="2">Cansaço constante mesmo depois de dormir</button>
+        <button class="opt" data-score="3">Exaustão que impossibilita atividades simples</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 4 -->
+    <div class="step" data-step="3">
+      <div class="step-area">Peso e barriga</div>
+      <div class="step-question">Você notou mudanças no peso ou na barriga?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Meu peso está estável</button>
+        <button class="opt" data-score="1">Pequeno ganho, mas consigo controlar</button>
+        <button class="opt" data-score="2">Engordo mesmo comendo igual, especialmente na barriga</button>
+        <button class="opt" data-score="3">Ganho de peso resistente, nada funciona</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 5 -->
+    <div class="step" data-step="4">
+      <div class="step-area">Intestino</div>
+      <div class="step-question">Como está seu intestino?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Regular, sem desconfortos</button>
+        <button class="opt" data-score="1">Às vezes inchaço ou intestino preso</button>
+        <button class="opt" data-score="2">Inchaço frequente, gases, alternância entre prisão e diarreia</button>
+        <button class="opt" data-score="3">Sintomas diários que atrapalham minha vida</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 6 -->
+    <div class="step" data-step="5">
+      <div class="step-area">Ciclo e menopausa</div>
+      <div class="step-question">Como está seu ciclo menstrual ou a transição para a menopausa?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Ciclo regular ou menopausa tranquila</button>
+        <button class="opt" data-score="1">Algumas irregularidades ou sintomas leves</button>
+        <button class="opt" data-score="2">Ciclo irregular, fluxo intenso ou fogachos frequentes</button>
+        <button class="opt" data-score="3">Sintomas intensos que afetam minha qualidade de vida</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 7 -->
+    <div class="step" data-step="6">
+      <div class="step-area">Pele e sensibilidades</div>
+      <div class="step-question">Você percebe reações no corpo, pele ou novas sensibilidades?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Nenhuma sensibilidade especial</button>
+        <button class="opt" data-score="1">Pele mais seca ou sensível que antes</button>
+        <button class="opt" data-score="2">Alergias, coceiras, enxaquecas ou intolerâncias alimentares novas</button>
+        <button class="opt" data-score="3">Reações frequentes e intensas que parecem aleatórias</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Pergunta 8 -->
+    <div class="step" data-step="7">
+      <div class="step-area">Libido e foco</div>
+      <div class="step-question">Como estão seu desejo sexual, foco e memória?</div>
+      <div class="options">
+        <button class="opt" data-score="0">Tudo bem, sem mudanças significativas</button>
+        <button class="opt" data-score="1">Alguma queda, mas consigo lidar</button>
+        <button class="opt" data-score="2">Queda perceptível no desejo e esquecimentos frequentes</button>
+        <button class="opt" data-score="3">Desejo muito baixo e névoa mental que atrapalha trabalho e vida</button>
+      </div>
+      <div class="step-nav">
+        <button class="btn-next" disabled>Ver meu resultado →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="result">
+    <div class="result-header">
+      <div class="result-level-tag" id="res-tag"></div>
+      <div class="result-score-display" id="res-score"></div>
+      <div class="result-title" id="res-title"></div>
+      <div class="result-subtitle" id="res-sub"></div>
+    </div>
+
+    <div class="score-bar-section">
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" id="res-bar"></div>
+      </div>
+      <div class="score-bar-labels">
+        <span>Baixo</span>
+        <span>Moderado</span>
+        <span>Elevado</span>
+        <span>Crítico</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="areas-section">
+      <div class="areas-title">Suas áreas de atenção</div>
+      <div id="areas-list"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="recs-section">
+      <div class="recs-title">O que isso significa para você</div>
+      <div id="recs-list"></div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-eyebrow">Próximo passo</div>
+      <p class="cta-text" id="cta-text"></p>
+      <a class="cta-btn" href="https://www.instagram.com/marifroes" target="_blank" rel="noopener">Falar com a Mari no Instagram</a>
+      <p class="cta-sub">Responde com a palavra CONSULTA no direct</p>
+    </div>
+
+    <button class="restart-btn" id="restart-btn">↺ Refazer o rastreamento</button>
+  </div>
+</main>
+
+<footer>
+  Esta ferramenta é educativa e não substitui avaliação clínica individualizada.<br>
+  <a href="https://www.instagram.com/marifroes" target="_blank" rel="noopener">@marifroes</a> · Mari Froes · Nutricionista Funcional
+</footer>
+
+<script>
+  const scores = new Array(8).fill(null);
+  const catLabels = ['Sono','Humor','Energia','Peso e barriga','Intestino','Ciclo e menopausa','Pele e reações','Libido e foco'];
+  const steps = document.querySelectorAll('.step');
+  const totalSteps = 8;
+
+  function updateProgress(stepIdx) {
+    const answered = scores.filter(s => s !== null).length;
+    document.getElementById('prog-fill').style.width = (answered / totalSteps * 100) + '%';
+    document.getElementById('prog-count').textContent = (stepIdx + 1) + ' de ' + totalSteps;
+  }
+
+  steps.forEach((step, stepIdx) => {
+    const opts = step.querySelectorAll('.opt');
+    const nextBtn = step.querySelector('.btn-next');
+
+    opts.forEach(btn => {
+      btn.addEventListener('click', () => {
+        opts.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        scores[stepIdx] = parseInt(btn.dataset.score);
+        nextBtn.disabled = false;
+        updateProgress(stepIdx);
+      });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (stepIdx < totalSteps - 1) {
+        step.classList.remove('active');
+        steps[stepIdx + 1].classList.add('active');
+        updateProgress(stepIdx + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showResult();
+      }
+    });
+  });
+
+  function showResult() {
+    document.getElementById('quiz-section').style.display = 'none';
+    document.getElementById('prog-fill').style.width = '100%';
+    document.getElementById('prog-count').textContent = 'Concluído';
+
+    const total = scores.reduce((a, b) => a + b, 0);
+    const maxScore = 24;
+    const pct = Math.round(total / maxScore * 100);
+
+    let color, tagBg, tagColor, levelLabel, title, subtitle, recs, ctaText;
+
+    if (pct <= 25) {
+      color = '#639922';
+      tagBg = '#EAF3DE'; tagColor = '#3B6D11';
+      levelLabel = 'Inflamação baixa';
+      title = 'Seu corpo está respondendo bem';
+      subtitle = 'Foco em manutenção e prevenção.';
+      recs = [
+        'Continue priorizando sono de qualidade e alimentação anti-inflamatória',
+        'Atenção ao estresse crônico, que pode elevar o cortisol silenciosamente',
+        'Faça check-ups hormonais anuais para monitorar a transição da perimenopausa'
+      ];
+      ctaText = 'Mesmo sem sintomas intensos, entender seus hormônios agora é a melhor prevenção. Posso te mostrar como fazer isso com nutrição.';
+    } else if (pct <= 50) {
+      color = '#BA7517';
+      tagBg = '#FAEEDA'; tagColor = '#854F0B';
+      levelLabel = 'Inflamação moderada';
+      title = 'Seu corpo está sinalizando';
+      subtitle = 'É hora de prestar atenção antes que os sintomas aumentem.';
+      recs = [
+        'Priorize alimentos ricos em magnésio e ômega-3 para reduzir a inflamação',
+        'Sono perturbado e ganho abdominal juntos indicam desequilíbrio cortisol-progesterona',
+        'Intestino irregular impacta diretamente seus níveis de estrogênio',
+        'Uma avaliação funcional pode identificar por onde começar de forma individualizada'
+      ];
+      ctaText = 'Seus sintomas não são aleatórios. Existe uma explicação hormonal para cada um deles. Vamos conversar sobre o que está acontecendo com você?';
+    } else if (pct <= 75) {
+      color = '#D85A30';
+      tagBg = '#FAECE7'; tagColor = '#993C1D';
+      levelLabel = 'Inflamação elevada';
+      title = 'Vários sistemas estão sobrecarregados';
+      subtitle = 'O seu corpo está pedindo atenção agora.';
+      recs = [
+        'A combinação de sono, peso e intestino afetados indica eixo cortisol-estrogênio comprometido',
+        'Reações cutâneas e intolerâncias novas podem ser sinal de histamina elevada',
+        'Névoa mental e baixo desejo são sintomas neurológicos da queda de progesterona',
+        'Não é falta de força de vontade. É bioquímica. E tem solução com a abordagem certa.'
+      ];
+      ctaText = 'Com esse nível de inflamação hormonal, cada mês sem olhar para isso aumenta o impacto. Me manda uma mensagem no Instagram.';
+    } else {
+      color = '#E24B4A';
+      tagBg = '#FCEBEB'; tagColor = '#A32D2D';
+      levelLabel = 'Inflamação muito elevada';
+      title = 'Seu corpo está pedindo ajuda de forma intensa';
+      subtitle = 'Múltiplos sistemas afetados ao mesmo tempo.';
+      recs = [
+        'Múltiplos sistemas afetados indicam carga inflamatória sistêmica que precisa ser tratada na raiz',
+        'A exaustão que você sente não é frescura. É sinal de que o eixo HPA está sobrecarregado.',
+        'Esse quadro é tratável com abordagem funcional individualizada',
+        'Primeiro passo: avaliação completa para identificar a causa, não tratar sintomas isolados'
+      ];
+      ctaText = 'Você não precisa continuar se sentindo assim. Existe uma abordagem que olha para o seu corpo como um todo. Vamos conversar agora.';
+    }
+
+    // Score display
+    document.getElementById('res-tag').textContent = levelLabel;
+    document.getElementById('res-tag').style.cssText = `background: ${tagBg}; color: ${tagColor};`;
+    document.getElementById('res-score').textContent = pct + '%';
+    document.getElementById('res-score').style.color = color;
+    document.getElementById('res-title').textContent = title;
+    document.getElementById('res-sub').textContent = subtitle;
+
+    const bar = document.getElementById('res-bar');
+    bar.style.background = color;
+    setTimeout(() => { bar.style.width = pct + '%'; }, 100);
+
+    // Áreas
+    const areasList = document.getElementById('areas-list');
+    scores.forEach((s, i) => {
+      const pctArea = Math.round(s / 3 * 100);
+      areasList.innerHTML += `
+        <div class="area-row">
+          <div class="area-name">${catLabels[i]}</div>
+          <div class="area-bar-bg">
+            <div class="area-bar-fill" style="width: ${pctArea}%; background: ${color};"></div>
+          </div>
+          <div class="area-pct">${pctArea}%</div>
+        </div>`;
+    });
+
+    // Recomendações
+    const recsList = document.getElementById('recs-list');
+    recs.forEach(r => {
+      recsList.innerHTML += `<div class="rec-item"><div class="rec-dot"></div><span>${r}</span></div>`;
+    });
+
+    // CTA
+    document.getElementById('cta-text').textContent = ctaText;
+
+    document.getElementById('result').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('restart-btn').addEventListener('click', () => {
+    scores.fill(null);
+    steps.forEach(s => {
+      s.classList.remove('active');
+      s.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+      s.querySelector('.btn-next').disabled = true;
+    });
+    steps[0].classList.add('active');
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('quiz-section').style.display = 'block';
+    document.getElementById('areas-list').innerHTML = '';
+    document.getElementById('recs-list').innerHTML = '';
+    document.getElementById('prog-fill').style.width = '0%';
+    document.getElementById('prog-count').textContent = '1 de 8';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
