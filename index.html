@@ -2,222 +2,92 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mari Froes · Nutricionista Funcional</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mariana Froes · Nutricionista da mulher 40+</title>
+<meta name="description" content="Nutrição funcional para mulheres 40+ na perimenopausa e menopausa. Consultas em Madrid e online.">
+<meta property="og:title" content="Mariana Froes · Nutricionista da mulher 40+">
+<meta property="og:description" content="Desinflame, equilibre seus hormônios e volte a se sentir bem no seu corpo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #f5f1ea;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
+  :root{
+    --terra:#C17B3E; --terra-dark:#8A5426; --lilac:#8B6BA8;
+    --cream:#F6EFE6; --lilac-light:#EFE4F3; --cacau:#3B2A26; --white:#FFFDF9;
   }
-
-  .container {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Jost',system-ui,sans-serif;color:var(--cacau);
+    background:linear-gradient(180deg,var(--cream) 0%,var(--lilac-light) 100%);
+    min-height:100vh;display:flex;justify-content:center;padding:40px 18px 32px;
   }
-
-  /* HEADER */
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-    animation: fadeUp 0.6s ease both;
+  main{width:100%;max-width:440px;text-align:center}
+  .logo{width:84px;height:auto;margin-bottom:14px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.1rem;line-height:1.1}
+  .tag{font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-dark);margin:8px 0 14px}
+  .bio{font-size:.98rem;line-height:1.5;margin:0 auto 26px;max-width:340px}
+  .links{display:flex;flex-direction:column;gap:12px}
+  a.btn{
+    display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--cacau);
+    background:var(--white);border:1.5px solid rgba(59,42,38,.10);border-radius:16px;
+    padding:15px 18px;text-align:left;transition:transform .15s,box-shadow .15s;
+    box-shadow:0 2px 10px rgba(59,42,38,.06);
   }
-
-  .insta-handle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 12px;
-    letter-spacing: 0.04em;
-  }
-
-  .insta-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.5;
-  }
-
-  .name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 600;
-    color: #2a2a2a;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .title {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #3d7a6a;
-  }
-
-  .divider {
-    width: 32px;
-    height: 2px;
-    background: #3d7a6a;
-    margin: 14px auto 0;
-    border-radius: 2px;
-  }
-
-  /* CARDS */
-  .cards {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .card {
-    width: 100%;
-    background: #3d7a6a;
-    border-radius: 16px;
-    padding: 22px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    animation: fadeUp 0.6s ease both;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .card:nth-child(1) { animation-delay: 0.15s; }
-  .card:nth-child(2) { animation-delay: 0.25s; background: #4a3980; }
-  .card:nth-child(3) { animation-delay: 0.35s; background: #7a4a3d; }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.07);
-    pointer-events: none;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-  }
-
-  .card-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: white;
-    line-height: 1.25;
-    max-width: 220px;
-  }
-
-  .card-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-
-  .card:hover .card-arrow {
-    background: rgba(255,255,255,0.25);
-  }
-
-  .card-arrow svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: white;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* FOOTER */
-  .footer {
-    margin-top: 36px;
-    font-size: 12px;
-    color: #aaa;
-    text-align: center;
-    animation: fadeUp 0.6s ease 0.5s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  a.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(59,42,38,.12)}
+  .ico{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--lilac-light)}
+  .txt strong{display:block;font-weight:500;font-size:1rem}
+  .txt span{display:block;font-size:.82rem;opacity:.75;margin-top:2px}
+  a.btn.destaque{background:var(--terra);color:#fff;border:none;position:relative}
+  a.btn.destaque .ico{background:rgba(255,255,255,.2)}
+  a.btn.destaque .txt span{opacity:.92}
+  .badge{position:absolute;top:-9px;right:14px;background:var(--lilac);color:#fff;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
+  .social{display:flex;justify-content:center;gap:14px;margin:30px 0 14px}
+  .social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--white);color:var(--cacau);box-shadow:0 2px 8px rgba(59,42,38,.08)}
+  .social svg{width:20px;height:20px}
+  footer{font-size:.75rem;opacity:.6;line-height:1.5}
 </style>
 </head>
 <body>
+<main>
+  <svg class="logo" viewBox="0 0 200 140" fill="none" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M 22 124 L 22 82 A 39 39 0 0 1 100 82 L 100 124" stroke="#C17B3E"/>
+    <path d="M 100 124 L 100 82 A 39 39 0 0 1 178 82 L 178 124" stroke="#8B6BA8"/>
+  </svg>
+  <h1>Mariana Froes</h1>
+  <p class="tag">Nutrição e saúde da mulher</p>
+  <p class="bio">Nutricionista funcional há 17 anos. Ajudo mulheres 40+ a atravessar a perimenopausa e a menopausa com menos inflamação e mais energia, sem dietas restritivas.</p>
 
-<div class="container">
-
-  <div class="header">
-    <div class="insta-handle">
-      <svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-      @marifroes
-    </div>
-    <div class="name">Mari Froes</div>
-    <div class="title">Nutricionista Funcional</div>
-    <div class="divider"></div>
-  </div>
-
-  <div class="cards">
-
-    <a class="card" href="https://wa.me/34684291653?text=Olá%20Mari%2C%20quero%20marcar%20minha%20consulta">
-      <div class="card-text">Quero marcar minha consulta</div>
-      <div class="card-arrow">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
+  <nav class="links">
+    <a class="btn destaque" href="https://www.drafernandachequer.com.br/produtos/desinflama" target="_blank" rel="noopener">
+      <span class="badge">Vagas abertas</span>
+      <span class="ico">🌿</span>
+      <span class="txt"><strong>Desinflama Você · turma 27/11</strong><span>2 semanas para desinflamar, em grupo e com acompanhamento</span></span>
     </a>
 
-    <a class="card" href="desinflama-voce.html">
-      <div class="card-text">Quero conhecer o Desinflama Você 40+</div>
-      <div class="card-arrow">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
+    <a class="btn" href="https://harmonious-cannoli-8a11b9.netlify.app/" target="_blank" rel="noopener">
+      <span class="ico">🔍</span>
+      <span class="txt"><strong>Estou inflamada? Faça o teste</strong><span>Grátis, leva 2 minutos</span></span>
     </a>
 
-    <a class="card" href="https://wa.me/34684291653?text=Olá%20Mari%2C%20quero%20saber%20mais%20sobre%20o%20Reset%2040%2B">
-      <div class="card-text">Quero conhecer o Reset 40+</div>
-      <div class="card-arrow">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
+    <a class="btn" href="consulta.html">
+      <span class="ico">📅</span>
+      <span class="txt"><strong>Agende sua consulta</strong><span>Online, de onde você estiver</span></span>
     </a>
 
+    <a class="btn" href="consulta.html#flow">
+      <span class="ico">✨</span>
+      <span class="txt"><strong>FLOW 40+ · acompanhamento de 3 meses</strong><span>Consultas, check-in semanal e avaliação corporal Shaped</span></span>
+    </a>
+  </nav>
+
+  <div class="social">
+    <a href="https://instagram.com/marifroes" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+    </a>
+    <a href="https://wa.me/34684291653" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg>
+    </a>
   </div>
-
-  <div class="footer">
-    Madrid · Consultas online para Brasil e Europa
-  </div>
-
-</div>
-
+  <footer>Madrid · Online para Brasil, Portugal e Europa</footer>
+</main>
 </body>
 </html>
